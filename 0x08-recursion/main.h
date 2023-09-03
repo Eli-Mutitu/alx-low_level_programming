@@ -1,9 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+/* Prototype for _putchar */
 int _putchar(char c);
 
-/* Function prototypes */
+/* Prototypes for your functions */
 void _puts_recursion(char *s);
 int _strlen_recursion(char *s);
 int factorial(int n);
