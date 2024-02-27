@@ -6,8 +6,6 @@
 #include <string.h>
 #include <elf.h>
 
-#define BUF_SIZE 64
-
 void print_error(const char *message) {
     fprintf(stderr, "%s\n", message);
     exit(98);
@@ -18,27 +16,28 @@ void print_elf_header(const char *filename) {
     Elf64_Ehdr header;
     ssize_t bytes_read;
 
-    // Open the ELF file
+    /* Open the ELF file */
     fd = open(filename, O_RDONLY);
     if (fd == -1) {
         print_error("Error opening file");
     }
 
-    // Read ELF header
+    /* Read ELF header */
     bytes_read = read(fd, &header, sizeof(header));
-    if (bytes_read == -1 || bytes_read != sizeof(header)) {
+    if (bytes_read != sizeof(header)) {
         print_error("Error reading ELF header");
     }
 
-    // Check ELF magic number
+    /* Check ELF magic number */
     if (memcmp(header.e_ident, ELFMAG, SELFMAG) != 0) {
         print_error("Not an ELF file");
     }
 
-    // Print ELF header information
+    /* Print ELF header information */
     printf("ELF Header:\n");
     printf("  Magic:   ");
-    for (int i = 0; i < SELFMAG; i++) {
+    int i;
+    for (i = 0; i < SELFMAG; i++) {
         printf("%02x ", header.e_ident[i]);
     }
     printf("\n");
@@ -72,7 +71,7 @@ void print_elf_header(const char *filename) {
     }
     printf("  Entry point address:               0x%lx\n", (unsigned long) header.e_entry);
 
-    // Close the file descriptor
+    /* Close the file descriptor */
     close(fd);
 }
 
