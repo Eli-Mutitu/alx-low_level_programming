@@ -15,6 +15,7 @@ void print_elf_header(const char *filename) {
     int fd;
     Elf64_Ehdr header;
     ssize_t bytes_read;
+    int i; /* Declare i here */
 
     /* Open the ELF file */
     fd = open(filename, O_RDONLY);
@@ -36,7 +37,6 @@ void print_elf_header(const char *filename) {
     /* Print ELF header information */
     printf("ELF Header:\n");
     printf("  Magic:   ");
-    int i;
     for (i = 0; i < SELFMAG; i++) {
         printf("%02x ", header.e_ident[i]);
     }
